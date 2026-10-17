@@ -97,7 +97,7 @@ final class Registry implements RegistryInterface
         }
     }
 
-    public function registerTool(Tool $tool, callable|array|string $handler): ToolReference
+    public function registerTool(Tool $tool, callable|array|string $handler, bool $structuredContentOnly = false): ToolReference
     {
         if (!$this->nameValidator->isValid($tool->name)) {
             $this->logger->warning(
@@ -105,7 +105,7 @@ final class Registry implements RegistryInterface
             );
         }
 
-        $reference = new ToolReference($tool, $handler);
+        $reference = new ToolReference($tool, $handler, $structuredContentOnly);
         $this->tools[$tool->name] = $reference;
 
         $this->eventDispatcher?->dispatch(new ToolListChangedEvent());

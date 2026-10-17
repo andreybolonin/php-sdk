@@ -50,6 +50,7 @@ final class ReflectedElementLoader implements LoaderInterface
      *     annotations: ?ToolAnnotations,
      *     icons: ?Icon[],
      *     meta: ?array<string, mixed>,
+     *     structuredContentOnly?: bool,
      *     outputSchema: ?array<string, mixed>
      * }[] $tools
      * @param array{
@@ -126,7 +127,7 @@ final class ReflectedElementLoader implements LoaderInterface
                     meta: $data['meta'] ?? null,
                     outputSchema: $data['outputSchema'] ?? null,
                 );
-                $registry->registerTool($tool, $data['handler']);
+                $registry->registerTool($tool, $data['handler'], $data['structuredContentOnly'] ?? false);
 
                 $handlerDesc = $this->getHandlerDescription($data['handler']);
                 $this->logger->debug("Registered manual tool {$name} from handler {$handlerDesc}");
